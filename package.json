@@ -1,0 +1,36 @@
+{
+    "name": "ai-testflow-agent",
+    "version": "1.0.0",
+    "description": "AI-powered automation testing code generator from Excel (Playwright/JavaScript)",
+    "main": "server/server.js",
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "keywords": [
+        "ai",
+        "automation",
+        "testing",
+        "playwright",
+        "javascript",
+        "ollama",
+        "excel",
+        "pom",
+        "generated"
+    ],
+    "author": "AI Testflow Agent",
+    "license": "ISC",
+    "dependencies": {
+        "archiver": "^7.0.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "multer": "^1.4.5-lts.1",
+        "node-fetch": "^2.7.0",
+        "open": "^10.1.0",
+        "xlsx": "^0.18.5"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.45.0",
+        "playwright": "^1.45.0"
+    }
+}

@@ -1,0 +1,18 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/allure-report/
+/allure-results/
+/screenshots/
+/Utils/config.ts
+/test-data/
+/.env
+/.env.local 
+/allure-single-html-report/
+/package-lock.json
+/client/xlsx.full.min.js
+

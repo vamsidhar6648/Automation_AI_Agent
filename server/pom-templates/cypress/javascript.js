@@ -1,0 +1,103 @@
+// server/pom-templates/cypress/javascript.js
+// This file provides the AI Generation Guide content for Cypress JavaScript.
+
+const { toCamelCase, toPascalCase, toShortFeatureName } = require('../../utils/normalizer');
+
+module.exports = (projectName, dynamicBaseUrl) => { 
+    const normalizedProjectName = toCamelCase(projectName || 'generated-tests'); 
+
+    const aiGenerationGuideContent = `## AI Code Generation Guide (Cypress JavaScript - Flat Top-Level POM)
+
+**ABSOLUTELY CRITICAL INSTRUCTIONS: ADHERE WITHOUT EXCEPTION.**
+**FAILURE TO FOLLOW THESE INSTRUCTIONS WILL RESULT IN INVALID OR UNUSABLE CODE.**
+* **NO EXTRA TEXT**: Do not add any conversational elements, greetings, prefaces, or explanations outside the final JSON.
+* **STRICT OUTPUT FORMAT**: Your entire response MUST be a single JSON object. Keys are relative file paths, values are file contents.
+* **PURE CODE OUTPUT**: File contents MUST be valid code. No delimiters ([[CODE_START]], [[CODE_END]]) or markdown code block markers (\\\`\\\`\\\`javascript) INSIDE the file content strings.
+* **EXACT STRING REPLICATION IS REQUIRED for test and describe block titles.**
+* **DO NOT GENERATE LOCATORS FOR THE AI AGENT'S OWN UI. ONLY GENERATE LOCATORS FOR THE APPLICATION UNDER TEST.**
+* **STRING LITERALS IN GENERATED CODE**: For string values within the generated JavaScript code (e.g., arguments to \\\`cy.get()\\\`), always use **single quotes (\\\`'\\\`)** unless string interpolation is strictly required. If interpolation is needed, use backticks (\\\`\\\`\\\`), but ensure any literal backticks within the *value* are properly escaped (e.g., \\\\\\\\\` for a literal backtick). **Prioritize single quotes for simplicity.**
+
+---
+
+**Key Naming Conventions (ABSOLUTELY STRICT - NOW FLAT TOP-LEVEL):**
+* **Unique Feature Name (Shortened):** For each unique "Test Scenario", generate a **concise, unique and meaningful name**.
+    * **This "Unique Feature Name" (camelCase) will be used for \\\`{featureName}\\\` in test spec file names (e.g., 'login.cy.js').**
+    * **The PascalCase version of this "Unique Feature Name" will be used for \\\`{FeatureName}\\\` for Page Object and Locator file/class names (e.g., 'LoginPage.js', 'LoginLocators.js').**
+    * **Examples of Transformation:**
+        * "Verify User Login Functionality with Valid Credentials" -> "login" (\\\`{featureName}\\\`); "Login" (\\\`{FeatureName}\\\`)
+
+* **Locator File Path/Name:** \\\`page-objects/{FeatureName}Locators.js\\\` (e.g., \\\`page-objects/LoginLocators.js\\\`).
+* **Page Object File Path/Name:** \\\`pages/{FeatureName}Page.js\\\` (e.g., \\\`pages/LoginPage.js\\\`).
+* **Test Spec File Path/Name:** \\\`cypress/e2e/{featureName}.cy.js\\\` (e.g., \\\`cypress/e2e/login.cy.js\\\`). **Note the nested path for Cypress e2e tests.**
+* **Page Object Class Name:** \\\`{FeatureName}Page\\\` (e.g., \\\`LoginPage\\\`).
+
+* **DESCRIBE BLOCK TITLE:** The title for \\\`describe()\\\` **MUST BE THE ABSOLUTE, EXACT STRING** from the "Test Scenario" column in Excel. **DO NOT ALTER, ADD TO, OR OMIT ANY PART OF THIS STRING. NO TYPOS.**
+    * Example: If Excel says "Verify Login Functionality", output \\\`describe('Verify Login Functionality', () => { ... })\\\`.
+
+* **IT BLOCK TITLE AND TAGS:** The title for \\\`it()\\\` **MUST BE THE ABSOLUTE, EXACT STRING** from the "Test Case Description" column in Excel. **DO NOT ADD ANY PREFIXES (e.g., "Test for", "TC_001:", "Case 1"), SUFFIXES, OR MODIFY THIS STRING, EXCEPT FOR PREPENDING TAGS.**
+    * **CRITICAL: Prepend tags based on the 'Testcase Priority' column in Excel. Cypress supports tags in test titles.**
+        * If 'Testcase Priority' is **P1**: prepend \\\`@smoke @reg\\\` (e.g., \\\`it('@smoke @reg Verify successful login.', ...)\\\`)
+        * If 'Testcase Priority' is **P2**: prepend \\\`@sanity @reg\\\` (e.g., \\\`it('@sanity @reg Verify partial search.', ...)\\\`)
+        * If 'Testcase Priority' is **P3**: prepend \\\`@reg\\\` (e.g., \\\`it('@reg Verify logout functionality.', ...)\\\`)
+    * Example: If Excel says "Verify successful login with valid credentials." and priority is P1, output \\\`it('@smoke @reg Verify successful login with valid credentials.', () => { ... })\\\`.
+
+* **Page Object Method Name:** \\\`camelCase\\\` describing the action or verification.
+
+* **Test Data (from "Test Data" column):**
+    * Parse "Test Data" (e.g., "username:value1, password:value2") into key-value pairs or a structured object within the test or Page Object method.
+    * **CRITICAL: Pass these parsed data values directly as arguments to Page Object methods or use them within the test.**
+    * **DO NOT hardcode test data values directly into the generated code.**
+
+---
+
+**AI's Responsibility (based on Excel Data, User Preferences, Confirmed POM Structure, and PROVIDED LISTS):**
+
+1.  **Project Structure Adherence (Cypress Specific):**
+    * **IMPORTANT: The following base project files are provided by the server and DO NOT need to be generated by you:** \\\`package.json\\\`, \\\`cypress.config.js\\\`, \\\`.env\\\`, \\\`.gitignore\\\`, \\\`README.md\\\`. **DO NOT include these in your JSON output.**
+    * You are ONLY responsible for generating the dynamic test-specific files:
+        * **Top-level \\\`page-objects/\\\` for locators.**
+        * **Top-level \\\`pages/\\\` for page object classes.**
+        * **Nested \\\`cypress/e2e/\\\` for test spec files (e.g., \\\`cypress/e2e/login.cy.js\\\`).**
+        * **NO separate WebActions file generation:** Cypress commands are global (cy.visit, cy.get, cy.click). Page Object methods should wrap these directly.
+        * **NO separate fixture generation for baseFixture.js:** Cypress doesn't use Playwright-style fixtures. Page Objects are imported directly into tests.
+
+2.  **Generate Locator Files (in \\\`page-objects/\\\` folder):**
+    * For each unique "Test Scenario", use its "Unique Feature Name" (\\\`{FeatureName}\\\`). Create a new JavaScript file named \\\`{FeatureName}Locators.js\\\` (e.g., \\\`page-objects/LoginLocators.js\\\`).
+    * This file should define and export an object using the \\\`export default { ... };\\\` syntax.
+    * This object should contain **ALL robust and unique locators** for the specific page/feature. Prioritize explicit attributes (\\\`data-cy\\\`, \\\`id\\\`, \\\`name\\\`, \\\`aria-label\\\`), semantic elements, then efficient CSS selectors. Avoid XPath if possible.
+    * **CRITICAL**: These locators must be for the **APPLICATION UNDER TEST ONLY**, NOT the AI agent's own UI elements.
+
+3.  **Generate Page Object Files (in \\\`pages/\\\` folder):**
+    * For each unique "Test Scenario", use its "Unique Feature Name" (\\\`{FeatureName}\\\`). Create a new JavaScript file named \\\`{FeatureName}Page.js\\\` (e.g., \\\`pages/LoginPage.js\\\`).
+    * This class should encapsulate actions and assertions related to a specific page or feature.
+    * It **MUST import its corresponding locator file** (e.g., \\\`import LoginLocators from '../page-objects/LoginLocators.js';\\\`). Note the relative path \\\`../page-objects/\\\`.
+    * **Methods:** Implement high-level methods corresponding to user actions/flows using Cypress commands (e.g., \\\`cy.visit()\\\`, \\\`cy.get()\\\`, \\\`cy.click()\\\`, \\\`cy.type()\\\`, \\\`cy.contains()\\\`).
+    * **Assertions:** Page Object methods can include basic assertions where appropriate (e.g., \\\`cy.get(...).should('be.visible')\\\`, \\\`cy.url().should('include', '/dashboard')\\\`).
+
+4.  **Generate Test Spec Files (in \\\`cypress/e2e/\\\` folder):**
+    * For each unique "Test Scenario", use its "Unique Feature Name" (\\\`{featureName}\\\`). Create a new JavaScript test file named \\\`{featureName}.cy.js\\\` (e.g., \\\`cypress/e2e/login.cy.js\\\`).
+    * Import relevant Page Objects (e.g., \\\`import { LoginPage } from '../../pages/LoginPage.js';\\\`). **Note the relative path, two levels up to 'pages'.**
+    * Use \\\`describe()\\\` with the **EXACT** "Test Scenario" title.
+    * For each "Test Case Description", create an \\\`it()\\\` block with the **EXACT** "Test Case Description" title, **INCLUDING THE REQUIRED TAGS.**
+    * Call Page Object methods for test steps, **passing actual parsed data as arguments.**
+    * Implement assertions based on "Expected Result" using Cypress \\\`expect()\\\` or \\\`.should()\\\` commands.
+
+---
+
+**THE FOLLOWING IS THE ABSOLUTE, REQUIRED JSON OUTPUT STRUCTURE. You MUST generate ONLY these files and their contents. DO NOT include any other files.**
+\`\`\`json
+{
+  // IMPORTANT: For each unique Test Scenario, you MUST generate these files:
+  "page-objects/{FeatureName}Locators.js": "// content of {FeatureName}Locators.js",
+  "pages/{FeatureName}Page.js": "// content of {FeatureName}Page.js",
+  "cypress/e2e/{featureName}.cy.js": "// content of {featureName}.cy.js"
+}
+\`\`\`
+**REPLACE "// content of ..." with the actual full code for each file.**
+**Ensure ALL mentioned files above are present in your JSON output, using dynamic FeatureName/featureName.**
+`;
+
+    return {
+        "AI_GENERATION_GUIDE.md": aiGenerationGuideContent
+    };
+};

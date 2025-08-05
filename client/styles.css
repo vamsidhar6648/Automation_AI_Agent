@@ -1,0 +1,619 @@
+/* client/styles.css */
+
+/* General Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #87CEEB, #A7D9F0); /* Sky blue gradient for depth */
+    margin: 0;
+    padding: 40px; /* Increased overall padding on the page */
+    display: flex;
+    flex-direction: column; /* Stack major sections vertically */
+    align-items: center; /* Center content horizontally by default */
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    gap: 35px; /* Increased spacing between major form groups */
+}
+
+/* Header Section - Left Aligned */
+.header-section {
+    width: 100%; /* Take full width */
+    max-width: 1000px; /* Optional: limit max width for very large screens */
+    margin-bottom: 0; /* Gap handled by body's gap */
+    text-align: left; /* Align text left within its section */
+    align-self: flex-start; /* Aligns to the start of the body's cross-axis (left) */
+    padding-left: 20px; /* Some padding from the edge */
+}
+
+h1 {
+    text-align: left;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-size: 2.8em; /* Slightly larger heading */
+    letter-spacing: -0.8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: bold; /* Make h1 bold */
+}
+
+h1 .emoji {
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+
+p {
+    text-align: left;
+    margin-bottom: 0;
+    color: #555;
+    font-size: 1.2em; /* Slightly larger description */
+    line-height: 1.5;
+}
+
+/* Project Name - Centered */
+.form-group-center {
+    width: 100%;
+    max-width: 600px; /* Constrain width for readability and centering */
+    text-align: center;
+    margin: 0; /* Gap handled by body's gap */
+}
+.form-group-center label {
+    text-align: center;
+    margin-bottom: 10px; /* More space below label */
+}
+.form-group-center input {
+    margin: 0 auto; /* Center the input within its parent div */
+    display: block; /* Make input a block element to respect margin auto */
+}
+
+/* Common Form Item Styling */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold; /* Make labels bold */
+    color: #333;
+    font-size: 1.05em;
+}
+
+input[type="text"],
+select,
+input[type="file"] {
+    width: 100%; /* Take full width of their parent container */
+    max-width: 600px; /* Maximum width for all inputs/selects for readability */
+    padding: 14px 18px; /* More padding for a softer touch */
+    border: none; /* No border for a cleaner look */
+    border-radius: 10px; /* More rounded */
+    font-size: 1.1em;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle floating effect */
+}
+
+input[type="text"]:focus,
+select:focus,
+input[type="file"]:focus {
+    background-color: #ffffff; /* Solid white on focus */
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3); /* Stronger glow on focus */
+    outline: none;
+}
+
+small {
+    display: block;
+    margin-top: 10px; /* More space below input, before small text */
+    color: #777;
+    font-size: 0.95em;
+    max-width: 600px; /* Constrain small text width */
+    margin-left: auto; /* Center small text */
+    margin-right: auto;
+}
+
+/* Side-by-Side Form Rows - General Layout for Multiple Columns */
+.form-row-pair { /* For Tool and Language */
+    display: flex;
+    justify-content: center; /* Center the pair horizontally */
+    gap: 30px; /* More space between the two columns */
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px; /* Max width for these side-by-side elements */
+}
+.form-row-pair .form-item {
+    flex: 1;
+    min-width: 280px; /* Minimum width before wrapping */
+    max-width: 400px; /* Max width for each item in the pair */
+}
+.form-row-pair .form-item select { /* Ensure selects in this layout respect max-width */
+    margin: 0 auto; /* Center the select within its item */
+    display: block; /* To apply margin auto */
+}
+
+/* Inline Form Rows (Label above, then input/button side-by-side) */
+.form-row-inline { /* For File Upload */
+    width: 100%;
+    max-width: 1000px; /* Max width for these inline elements */
+    display: flex;
+    flex-direction: column; /* Stack label above the input/button group */
+    align-items: center; /* Center the stacked items */
+    margin: 0; /* Gap handled by body's gap */
+}
+.form-row-inline label {
+    align-self: flex-start; /* Label aligns left within its group */
+    margin-left: calc(50% - 300px); /* Adjust to align with max-width:600px inputs */
+    max-width: 600px;
+    width: 100%;
+}
+.form-row-inline .file-input-group { 
+    display: flex;
+    gap: 15px; /* More space between input and button */
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 600px; /* Keep this group constrained */
+}
+.form-row-inline .file-input-group input[type="file"] {
+    flex: 1;
+    min-width: 250px; /* Min width for input before wrapping */
+}
+
+/* NEW: Action Buttons Container - for Generate Code and AI Suggestions */
+.action-buttons {
+    display: none; /* Controlled by JS, hidden initially */
+    width: 100%;
+    max-width: 600px;
+    display: flex; 
+    flex-direction: column; /* Stacks generate-button-section and center-buttons vertically */
+    align-items: center; 
+    gap: 20px; /* Vertical gap between generate-button-section and center-buttons */
+}
+
+/* Generate Test Code Button Section - Now specifically for its buttons */
+.generate-button-section {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    gap: 30px; /* INCREASED: Space between Generate Test Code and AI Suggestions buttons */
+    flex-wrap: wrap; 
+}
+
+
+/* Buttons Styling and Animations */
+button {
+    padding: 14px 30px; 
+    border: none;
+    border-radius: 10px; 
+    background-color: #007bff; 
+    color: white;
+    cursor: pointer;
+    font-size: 1.15em; 
+    transition: background-color 0.3s ease, transform 0.1s ease-out, box-shadow 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); 
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.45); 
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #004085;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Group of buttons (Open VS Code, Download Updated Excel) */
+.center-buttons { 
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* INCREASED: Space between Open VS Code and Download Updated Excel buttons */
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 15px; /* NEW: Add vertical space between button rows */
+}
+
+
+/* Ripple Effect for Buttons */
+.ripple {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    position: absolute;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Status Message - Centered at the bottom */
+#status {
+    padding: 18px; 
+    border: none; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px; 
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    font-size: 1.1em;
+    width: 100%;
+    max-width: 600px; 
+    margin: 0; 
+}
+
+#status p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Specific styles for preview page elements (if you re-enable/use them) */
+#generatedCodePreviewArea {
+    margin-top: 40px;
+    border-top: 1px solid #eee; 
+    padding-top: 20px;
+    width: 100%;
+    max-width: 1000px; 
+    align-self: center; 
+}
+
+#generatedCodePreviewArea h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold; 
+}
+
+.scenario-block {
+    border: none; 
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.85); 
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.file-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 1px dashed #eee; 
+    padding-bottom: 5px;
+}
+
+pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #3a3f4a;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95em;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.suggestion-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #17a2b8;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    margin-right: 10px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease, transform 0.1s ease-out;
+    box-shadow: 0 3px 8px rgba(23, 162, 184, 0.3);
+}
+.suggestion-btn:hover {
+    background-color: #138496;
+    transform: translateY(-1px);
+}
+.suggestion-btn:disabled {
+    background-color: #cccccc !important;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* New styles for the Modal/Pop-up Window */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity (dim background) */
+    backdrop-filter: blur(5px); /* Optional: blur background for modern feel */
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+    padding-top: 60px; /* Location of the box */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    /* Adjusted for larger, more prominent size */
+    width: 95%; /* Wider */
+    max-width: 1200px; /* Larger max-width */
+    height: auto; /* Allow height to adjust to content */
+    max-height: 96vh; /* Prevent it from exceeding viewport height */
+    overflow-y: auto; /* Scroll content if it's too tall */
+    
+    margin: 2% auto; /* 2% from top, allowing it to stretch more vertically and remain centered */
+    padding: 30px;
+    border: 1px solid #888;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    position: relative; /* Needed for absolute positioning of close button */
+    display: flex; /* Flexbox for internal layout */
+    flex-direction: column; /* Stack children vertically */
+    gap: 20px; /* Space between elements */
+    animation: fadeInModal 0.3s ease-out; /* Simple fade in animation */
+}
+
+/* Close Button */
+.close-button {
+    color: #aaa;
+    float: right; /* Aligns to top right within its parent */
+    font-size: 38px;
+    font-weight: bold;
+    position: absolute; /* Position relative to modal-content */
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Headers */
+.modal-content h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.modal-content p {
+    text-align: center;
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+/* Suggestions List Container */
+.suggestions-list {
+    max-height: 400px; /* Make it scrollable if many suggestions */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.suggestion-scenario-group {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.suggestion-scenario-group h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
+
+.suggestion-test-case {
+    margin-bottom: 8px;
+    padding: 5px 0;
+}
+
+.suggestion-test-case label {
+    display: flex; /* Align checkbox and text */
+    align-items: flex-start; /* Align text to top if multiline */
+    font-weight: normal; /* Override bold label style */
+    cursor: pointer;
+    padding: 5px; /* Increase clickable area */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-test-case label:hover {
+    background-color: #e9f5ff; /* Light blue on hover */
+}
+
+.suggestion-test-case input[type="checkbox"] {
+    margin-right: 10px;
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+    transform: scale(1.2); /* Slightly larger checkbox */
+    margin-top: 3px; /* Align with text baseline */
+}
+
+.suggestion-test-case strong {
+    color: #333;
+    font-size: 1.1em;
+}
+
+.suggestion-test-case small {
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 2px;
+    padding-left: 30px; /* Indent description under title */
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Animation for modal */
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Query for smaller screens to stack items */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+        gap: 25px;
+    }
+
+    .header-section {
+        padding-left: 0;
+    }
+
+    .form-row-pair,
+    .form-row-inline .file-input-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input[type="text"],
+    select,
+    input[type="file"],
+    #status,
+    .form-group-center,
+    .form-row-pair .form-item,
+    .form-row-inline,
+    .action-buttons, /* Target action-buttons div */
+    .generate-button-section, 
+    .center-buttons,
+    #generatedCodePreviewArea {
+        max-width: 100%;
+    }
+
+    .form-row-pair .form-item,
+    .form-row-inline .file-input-group input,
+    .form-row-inline .file-input-group button {
+        width: 100%;
+        min-width: unset;
+    }
+
+    button {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .form-row-inline label {
+        margin-left: auto;
+        text-align: center;
+    }
+
+    /* Adjust modal for smaller screens */
+    .modal-content {
+        width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 30px;
+        right: 10px;
+        top: 5px;
+    }
+}
+
+/* Styles for suggestion controls (input and button next to scenario header) */
+.suggestion-controls {
+    display: inline-flex; 
+    align-items: center;
+    margin-left: 15px; 
+    gap: 8px; 
+    font-size: 0.8em; 
+}
+
+.suggestion-controls input[type="number"] {
+    width: 60px; 
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em; 
+    text-align: center;
+    background-color: #f0f0f0; 
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); 
+}
+
+.suggestion-controls button {
+    padding: 5px 12px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    background-color: #28a745; /* Green for refresh */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.suggestion-controls button:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Style for the toggle icon */
+.toggle-icon {
+    margin-left: 5px;
+    font-size: 0.8em; 
+    transition: transform 0.2s ease;
+}
+
+.suggestion-scenario-group h3[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg); 
+}

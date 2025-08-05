@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Testflow Agent</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="header-section">
+        <h1>🤖 AI Testflow Agent</h1>
+        <p>Generate automation test code from Excel using AI.</p>
+    </div>
+
+    <div class="form-group-center">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" name="projectName" placeholder="e.g. login-tests" value="generated-tests">
+    </div>
+
+    <div class="form-group-center">
+        <label for="outputPath">Output Directory:</label>
+        <input type="text" id="outputPath" name="outputPath" placeholder="e.g. C:\Users\YourUser\Desktop\MyProjects OR /home/user/my_projects">
+        <small>The generated project will be saved directly into this directory (e.g., [Your Path]/[Project Name]).</small>
+    </div>
+
+    <div class="form-row-pair">
+        <div class="form-item">
+            <label for="toolSelect">Automation Tool:</label>
+            <select id="toolSelect" name="toolSelect">
+                <option value="playwright" selected>Playwright</option>
+                <option value="selenium">Selenium</option>
+                <option value="cypress">Cypress</option>
+                <option value="robotframework">Robot Framework</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="languageSelect">Programming Language:</label>
+            <select id="languageSelect" name="languageSelect">
+                <option value="javascript" selected>JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row-inline">
+        <label for="excelUpload">Upload Excel File:</label>
+        <div class="file-input-group">
+            <input type="file" id="excelUpload" name="excelUpload" accept=".xlsx, .xls">
+            <button id="uploadBtn">Upload Excel</button>
+        </div>
+        <small>Upload an Excel file containing your test scenarios.</small>
+    </div>
+
+    <div id="actionButtons" class="action-buttons" style="display: none;"> 
+        <div class="generate-button-section">
+            <button id="generateCodeBtn">Generate Test Code</button>
+            <button id="aiSuggestionsBtn">AI Suggestions</button>
+        </div>
+
+        <div class="center-buttons">
+            <button id="openInVsCodeBtn">Open Project in VS Code</button>
+            <button id="downloadUpdatedExcelBtn" style="display: none;">Download Updated Excel</button> 
+        </div>
+    </div>
+
+    <div id="status" class="status-center">
+        Status: Ready
+    </div>
+
+    <div id="generatedCodePreviewArea" style="margin-top: 30px; display: none;">
+        <h2>Generated Test Code</h2>
+        <div id="codeBlocksContainer"></div>
+    </div>
+
+    <div id="suggestionsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>AI Test Case Suggestions</h2>
+            <p>Select test cases to add to your plan:</p>
+            <div id="suggestionsList" class="suggestions-list">
+                <p>Loading suggestions...</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="addSelectedBtn">Add Selected Testcases</button>
+                <button id="leavePageBtn">Leave This Page</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="xlsx.full.min.js"></script>
+    <script src="utils.js" defer></script>
+    <script src="main-app.js" defer></script>
+    <script src="ai-suggestions-ui.js" defer></script>
+</body>
+</html>
