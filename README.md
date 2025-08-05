@@ -1,4 +1,4 @@
-                                              AI Test Agent – Excel to Automation Code Converter
+                         AI Test Agent – Excel to Automation Code Converter
 
 Welcome to the AI Test Agent!
 This tool allows testers and developers to seamlessly convert manual test cases (in Excel format) into automated test scripts using AI – all based on user input and preferences.
